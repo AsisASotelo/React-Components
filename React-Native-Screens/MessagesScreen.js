@@ -11,7 +11,7 @@ const message = [
         id:1,
         title:'T1',
         description:'D1',
-        image: require("../assets/mosh.jpg")
+        image: require("../assets/mosh.jpg")    
     },
 
     {
