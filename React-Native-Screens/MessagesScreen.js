@@ -1,13 +1,14 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {FlatList, SafeAreaView,Platform,StatusBar, StyleSheet,View} from 'react-native';
 import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import ListItemSeperator from '../components/ListItemSeperator';
+import ListItemDeleteAction from '../components/ListItemDeleteAction';
 
 
 // In Lieu of a backend we create alist
 
-const message = [
+const initialMessages = [
     {
         id:1,
         title:'T1',
@@ -27,13 +28,31 @@ const message = [
 
 
 function MessagesScreen(props){
+
+    const [messages,setMessages] = useState(initialMessages); // This returns an array -> Destructure immediately
+    //    The first element in array is our state variable
+    // The second element in the array is a function to udpate our state variable setStatae
+
+  
+
+    const handleDelete = message => {
+        // Delete the message from messages 
+
+        
+        setMessages(messages.filter(m=>m.id!==message.id))
+
+        
+        
+
+    }
+
     return( 
 
         <Screen>
 
             <FlatList
-                data = {message}
-                keyExtractor = { message =>message.id.toString()} //Must return a string
+                data = {messages}
+                keyExtractor = { messages =>messages.id.toString()} //Must return a string
                 renderItem = {({item}) => (
                 
                     <ListItem
@@ -41,6 +60,8 @@ function MessagesScreen(props){
                     title={item.title}
                     subTitle={item.description}
                     onPress={() => console.log("Message Selected", item)}
+                    renderRightActions={() => 
+                        <ListItemDeleteAction onPress={()=> handleDelete(item)}/>}
                     image = {item.image}/>
                     
                     
