@@ -11,7 +11,7 @@ import Screen from './Screen';
 import PickerItem from '../components/PickerItem';
 
 
-function AppPicker({icon,items,placeholder}){
+function AppPicker({icon,items,placeholder,onSelectItem,selectedItem }){
     const [modalVisible,setModalVisible]=useState(false);
 
 
@@ -30,7 +30,7 @@ function AppPicker({icon,items,placeholder}){
                             size = {20} 
                             color = {colors.medium} 
                             name={icon}/>}
-                    <AppText style ={styles.text} >{placeholder}</AppText>
+                    <AppText style ={styles.text} >{selectedItem ? selectedItem.label:placeholder}</AppText>
                     <MaterialCommunityIcons 
                     
                         size = {20}
@@ -48,7 +48,11 @@ function AppPicker({icon,items,placeholder}){
                     renderItem={({item}) => 
                         <PickerItem
                             label={item.label}
-                            onPress={()=>console.log(item)}
+                            onPress={()=>{
+                                setModalVisible(false);
+                                onSelectItem(item);
+                            }}
+
                     
                         />}
                     />
